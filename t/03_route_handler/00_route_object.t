@@ -1,4 +1,4 @@
-use Test::More 'tests' => 8, import => ['!pass'];
+use Test::More 'tests' => 10, import => ['!pass'];
 use strict;
 use warnings;
 
@@ -72,4 +72,13 @@ $req = Dancer::Request->new_for_request( GET => '/error' );
 my $res = $r5->run($req);
 is( ( grep { /Content-Type/ } @{ $res->headers_to_array } ),
     1, 'only one content-type' );
+
+$req = Dancer::Request->new_for_request( GET => '/pass/42' );
+my $match = $r2->match($req);
+is_deeply $r2, $req->route(), "route /pass/:var is store in the request";
+
+$req = Dancer::Request->new_for_request( GET => '/other/path' );
+my $match = $r3->match($req);
+is_deeply $r3, $req->route(), "route /other/path is store in the request";
+
 
