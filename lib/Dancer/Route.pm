@@ -93,6 +93,9 @@ sub match {
 
     return unless @values;
 
+    # save route object in the request object
+    $request->route($self);
+
     # named tokens
     my @tokens = @{$self->{_params} || []};
 
