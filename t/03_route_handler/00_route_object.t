@@ -75,10 +75,10 @@ is( ( grep { /Content-Type/ } @{ $res->headers_to_array } ),
 
 $req = Dancer::Request->new_for_request( GET => '/pass/42' );
 $match = $r2->match($req);
-is_deeply $r2, $req->route(), "route /pass/:var is store in the request";
+is $r2->pattern, $req->route_pattern(), "route pattern /pass/:var is store in the request";
 
 $req = Dancer::Request->new_for_request( GET => '/other/path' );
 $match = $r3->match($req);
-is_deeply $r3, $req->route(), "route /other/path is store in the request";
+is $r3->pattern, $req->route_pattern(), "route pattern /other/path is store in the request";
 
 
